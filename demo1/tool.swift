@@ -7,24 +7,20 @@
 
 import UIKit
 
-protocol ResponderEventType {
-    func eventType() -> String
-}
-
 
 protocol ResponderProtocol: UIResponder {
-    func handleEvent<T>(type: ResponderEventType,params:T)
+    func handleEvent(type: any CaseIterable)
 }
 
 
 
 
 extension UIResponder{
-    func bubbleEvent<T>(_ eventType: ResponderEventType,params:T) {
+    func bubbleEvent(_ eventType: any CaseIterable) {
         var nextRespnder = self.next
         while nextRespnder != nil {
             if let savior = nextRespnder as? ResponderProtocol {
-                savior.handleEvent(type: eventType,params:params)
+                savior.handleEvent(type: eventType)
                 nextRespnder = nil
             }
             nextRespnder = nextRespnder?.next

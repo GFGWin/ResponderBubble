@@ -8,9 +8,18 @@
 import UIKit
 
 class BaseViewController: UIViewController,ResponderProtocol {
-    func handleEvent<T>(type: any ResponderEventType, params: T) {
-        debugPrint("消息类型---\(type) ===== 消息内容：\(params)")
+    func handleEvent(type: any CaseIterable) {
+        if let type = type as? ContentEvent {
+                switch type {
+                case .touch(data: let data):
+                    print("touch:\(data)")
+                case .touchBg(data: let data):
+                    print("touchBg:\(data)")
+                }
+            }
     }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
