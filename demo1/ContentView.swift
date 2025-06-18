@@ -7,15 +7,25 @@
 
 import UIKit
 
-enum ContentEvent:String,ResponderEventType{
-    case touch
-    case bgTouch
-    func eventType() -> String {
-        return self.rawValue
-    }
+enum ContentEvent:CaseIterable{
+
     
+    case touch(data:String)
+    case touchBg(data:String)
     
+    static var allCases: [ContentEvent] { return [.touch(data: "0"),.touchBg(data: "1")]}
+
 }
+
+//enum ContentEvent:String,ResponderEventType{
+//    case touch
+//    case bgTouch
+//    func eventType() -> String {
+//        return self.rawValue
+//    }
+//    
+//    
+//}
 
 class ContentView: UIView {
     override init(frame: CGRect) {
@@ -35,10 +45,10 @@ class ContentView: UIView {
     
     
     @objc func touchAction(){
-        self.bubbleEvent(ContentEvent.touch, params: "aaa")
+        self.bubbleEvent(ContentEvent.touch(data: "666"))
     }
     @objc func touchBg(){
-        self.bubbleEvent(ContentEvent.bgTouch, params: "bbb")
+        self.bubbleEvent(ContentEvent.touchBg(data: "888"))
     }
     
     
